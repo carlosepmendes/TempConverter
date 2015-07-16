@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DecimalFormat;
+
 
 public class MainActivity extends ActionBarActivity {
 
@@ -17,6 +19,8 @@ public class MainActivity extends ActionBarActivity {
     private Button cButton;
     private Button fButton;
     private TextView tempTextView;
+
+    DecimalFormat round = new DecimalFormat("0.0");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,8 +40,10 @@ public class MainActivity extends ActionBarActivity {
                 if (editTextVal.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Enter a value", Toast.LENGTH_LONG).show();
                 }else{
-                    int inteditText = Integer.parseInt(editTextVal);
-                    convertToCelsius(inteditText);
+                    double doubleeditText = Double.parseDouble(editTextVal);
+                    double convertvalue = convertToCelsius(doubleeditText);
+                    String convert = String.valueOf(round.format(convertvalue));
+                    tempTextView.setText(convert + " C");
                 }
             }
         });
@@ -50,19 +56,25 @@ public class MainActivity extends ActionBarActivity {
                 if (editTextVal.isEmpty()){
                     Toast.makeText(getApplicationContext(),"Enter a value", Toast.LENGTH_LONG).show();
                 }else{
-                    int inteditText = Integer.parseInt(editTextVal);
-                    convertToCelsius(inteditText);
+                    double doubleeditText = Double.parseDouble(editTextVal);
+                    double convertvalue = converToF(doubleeditText);
+                    String convert = String.valueOf(round.format(convertvalue));
+                    tempTextView.setText(convert + " F");
                 }
             }
         });
     }
 
-    public int convertToCelsius(int temp){
-        return 0;
+    public double convertToCelsius(double temp){
+        double result;
+        result = (temp  - 32)* 5/9;
+        return result;
     };
 
-    public int converToF(int temp){
-        return 0;
+    public double converToF(double temp){
+        double result;
+        result = temp * 9/5 + 32;
+        return result;
     };
 
 
